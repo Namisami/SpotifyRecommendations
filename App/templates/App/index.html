@@ -2,8 +2,10 @@
 
 {% block content %}
     <div class="position-absolute top-50 start-50 translate-middle">
-        <button type="button" class="text-white btn btn-success border border-white rounded-pill fs-5">
-            Авторизоваться через Spotify
-        </button>
+        <a href="{% url 'App:user' %}">
+            <button type="button" class="text-white btn btn-success border border-white rounded-pill fs-5">
+                Авторизоваться через Spotify
+            </button>
+        </a>
     </div>
 {% endblock content %}

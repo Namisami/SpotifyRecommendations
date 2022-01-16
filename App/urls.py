@@ -6,4 +6,6 @@ app_name = 'App'
 urlpatterns = [
     # Home page
     path('', views.index, name='index'),
+    # Авторизация пройдена
+    path('user/', views.user, name='user'),
 ]
