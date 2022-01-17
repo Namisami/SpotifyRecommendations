@@ -7,14 +7,34 @@ class SP():
                                                 client_secret="173a06da9b794b199a76632cf290b0eb",
                                                 redirect_uri="http://localhost:8888/callback",
                                                 scope="user-library-read user-top-read"))
+
     def sp_login(self):
         sp = self.sp.current_user()
         username = sp['display_name']
         userpic = sp['images'][0]['url']
         context = {'username': username, 'userpic': userpic}
         return context
+
     def sp_top_genres(self):
-        artists = self.sp.current_user_top_artists()
+        sp_range = 'medium_term'
+        results = self.sp.current_user_top_artists(time_range=sp_range, limit=50)
+        genres_dict = {}
+        for i, genre in enumerate(self.top_genres_count(results)):
+            genres_dict[f'genre{i + 1}'] = genre[0]
+        return genres_dict
+
+    def top_genres_count(self, results):
+        genres = set()
+        genres_dict = {}
+        for item in (results['items']):
+            for genre in item['genres']:
+                if genre not in genres:
+                    genres.add(genre)
+                    genres_dict[genre] = 1
+                else:
+                    genres_dict[genre] += 1
+        return (sorted(genres_dict.items(), key = lambda item: item[1], reverse=True)[:4])
+
 # results = sp.current_user_saved_tracks()
 # for idx, item in enumerate(results['items']):
 #     track = item['track']

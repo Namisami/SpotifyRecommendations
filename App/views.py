@@ -8,5 +8,7 @@ def index(request):
 
 def user(request):
     sp = spotify_api.SP()
-    context = sp.sp_login()
+    top_genres = sp.sp_top_genres()
+    login = sp.sp_login()
+    context = {**login, **top_genres}
     return render(request, 'App/user.html', context)
