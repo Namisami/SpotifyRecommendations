@@ -2,10 +2,12 @@
 
 {% block content %}
     <div class="position-absolute top-50 text-center start-50 translate-middle">
-        <p class="text-white">{{ genre1 }}</p>
-        <p class="text-white">{{ genre2 }}</p>
-        <p class="text-white">{{ genre3 }}</p>
-        <p class="text-white">{{ genre4 }}</p>
+        <div>
+            <p class="text-white">{{ genre1 }}</p>
+            <p class="text-white">{{ genre2 }}</p>
+            <p class="text-white">{{ genre3 }}</p>
+            <p class="text-white">{{ genre4 }}</p>
+        </div>
         <img src="{{ userpic }}" class='rounded-pill' width="150px"> <!-- Изменил вид фотки -->
         <p class="text-white mt-3 font-weight-bold user_name">{{ username }}</p>
         <!-- Добавил кнопки -->

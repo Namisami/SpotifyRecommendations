@@ -16,14 +16,17 @@ class SP():
         return context
 
     def sp_top_genres(self):
+        # Топ жанры
         sp_range = 'medium_term'
         results = self.sp.current_user_top_artists(time_range=sp_range, limit=50)
         genres_dict = {}
         for i, genre in enumerate(self.top_genres_count(results)):
             genres_dict[f'genre{i + 1}'] = genre[0]
+        self.reccomendations(", ".join(list(genres_dict.values())))
         return genres_dict
 
     def top_genres_count(self, results):
+        # Подсчет всех жанров которые есть и их сортировка
         genres = set()
         genres_dict = {}
         for item in (results['items']):
@@ -34,6 +37,14 @@ class SP():
                 else:
                     genres_dict[genre] += 1
         return (sorted(genres_dict.items(), key = lambda item: item[1], reverse=True)[:4])
+
+    def reccomendations(self, genres):
+        print(genres)
+        # results - огромный словарь данных. Для поиска нужного сперва вводи print(results) а дальше ищи в нем нужную пару ключ: значение
+        results = self.sp.recommendations(seed_genres=[genres], limit=1)
+        print(results['tracks'][0]['artists'][0]['name'])
+        print('---------------')
+        print(results['tracks'][0]['name'])
 
 # results = sp.current_user_saved_tracks()
 # for idx, item in enumerate(results['items']):
