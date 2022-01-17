@@ -7,5 +7,6 @@ def index(request):
     return render(request, 'App/index.html', { user: 'user'})
 
 def user(request):
-    context = spotify_api.sp_login()
+    sp = spotify_api.SP()
+    context = sp.sp_login()
     return render(request, 'App/user.html', context)
