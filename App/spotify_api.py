@@ -19,6 +19,7 @@ class SP():
         # Топ жанры
         sp_range = 'medium_term'
         results = self.sp.current_user_top_artists(time_range=sp_range, limit=50)
+        
         genres_dict = {}
         for i, genre in enumerate(self.top_genres_count(results)):
             genres_dict[f'genre{i + 1}'] = genre[0]
@@ -37,11 +38,34 @@ class SP():
                 else:
                     genres_dict[genre] += 1
         return (sorted(genres_dict.items(), key = lambda item: item[1], reverse=True)[:4])
+    
+    #Просто конвертирует строку в список
+    def genres_failure_protection(self, string):
+        arr = []
+        text = ''
+        skip = False
+        k = 0
+        for i in string:
+            k+=1
+            if skip == True:
+                skip = False
+                
+            elif i == ',':
+                arr.append(text)
+                text = ''
+                skip = True
+            elif k==len(string):
+                text+=i
+                arr.append(text)
+            else:
+                text += i
+        return arr
 
     def reccomendations(self, genres):
-        print(genres)
+        genres_arr = self.genres_failure_protection(genres)
+
         # results - огромный словарь данных. Для поиска нужного сперва вводи print(results) а дальше ищи в нем нужную пару ключ: значение
-        results = self.sp.recommendations(seed_genres=[genres], limit=1)
+        results = self.sp.recommendations(seed_genres=genres_arr, limit=1)
         print(results['tracks'][0]['artists'][0]['name'])
         print('---------------')
         print(results['tracks'][0]['name'])
