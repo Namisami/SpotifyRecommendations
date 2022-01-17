@@ -38,32 +38,9 @@ class SP():
                 else:
                     genres_dict[genre] += 1
         return (sorted(genres_dict.items(), key = lambda item: item[1], reverse=True)[:4])
-    
-    #Просто конвертирует строку в список
-    def genres_failure_protection(self, string):
-        arr = []
-        text = ''
-        skip = False
-        k = 0
-        for i in string:
-            k+=1
-            if skip == True:
-                skip = False
-                
-            elif i == ',':
-                arr.append(text)
-                text = ''
-                skip = True
-            elif k==len(string):
-                text+=i
-                arr.append(text)
-            else:
-                text += i
-        return arr
 
     def reccomendations(self, genres):
-        genres_arr = self.genres_failure_protection(genres)
-
+        genres_arr = genres.split(", ")
         # results - огромный словарь данных. Для поиска нужного сперва вводи print(results) а дальше ищи в нем нужную пару ключ: значение
         results = self.sp.recommendations(seed_genres=genres_arr, limit=1)
         print(results['tracks'][0]['artists'][0]['name'])
