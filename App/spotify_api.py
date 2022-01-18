@@ -6,7 +6,7 @@ class SP():
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="df8949840c764e07999105485f556f82",
                                                 client_secret="173a06da9b794b199a76632cf290b0eb",
                                                 redirect_uri="http://localhost:8888/callback",
-                                                scope="user-library-read user-top-read"))
+                                                scope="user-library-read user-top-read playlist-modify-private"))
 
     def sp_login(self):
         sp = self.sp.current_user()
@@ -46,6 +46,10 @@ class SP():
         print(results['tracks'][0]['artists'][0]['name'])
         print('---------------')
         print(results['tracks'][0]['name'])
+
+    def create_playlist(self):
+        user_me = self.sp.me()
+        self.sp.user_playlist_create(user_me['id'] ,'New Playlist!', public=False, collaborative=False, description='')
 
 # results = sp.current_user_saved_tracks()
 # for idx, item in enumerate(results['items']):
