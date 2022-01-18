@@ -11,5 +11,4 @@ def user(request):
     top_genres = sp.sp_top_genres()
     login = sp.sp_login()
     context = {**login, **top_genres}
-    sp.create_playlist()
     return render(request, 'App/user.html', context)
