@@ -18,7 +18,7 @@ class SP():
     def sp_top_genres(self):
         # Топ жанры
         genres_dict = self.top_genres_collect()
-        # self.reccomendations(", ".join(list(self.genres_dict.values())))
+        self.reccomendations(", ".join(list(genres_dict.values())))
         return genres_dict
 
     def top_genres_count(self, results):
@@ -44,15 +44,14 @@ class SP():
         return genres_dict
 
     def reccomendations(self, genres):
+        track_urls = []
         genres_arr = genres.split(", ")
         # results - огромный словарь данных. Для поиска нужного сперва вводи print(results) а дальше ищи в нем нужную пару ключ: значение
-        results = self.sp.recommendations(seed_genres=genres_arr, limit=1)
-        track_url = results['tracks'][0]['external_urls']['spotify']
-        print(track_url)
-        print(results['tracks'][0]['artists'][0]['name'])
-        print('---------------')
-        print(results['tracks'][0]['name'])
-        return track_url
+        results = self.sp.recommendations(seed_genres=genres_arr, limit=50)
+        for result in results['tracks']:
+            track_url = result['external_urls']['spotify']
+            track_urls.append(track_url)
+        return track_urls
 
     def create_playlist(self):
         user_me = self.sp.me()
@@ -60,11 +59,10 @@ class SP():
         self.add_songs()
 
     def add_songs(self):
+        # Добавляет песни в плейлист
         genres_dict = self.top_genres_collect()
-        print(genres_dict)
         playlist = self.sp.current_user_playlists(limit=1, offset=0)
         playlist_id = playlist['items'][0]['id']
         tracks = (", ".join(list(genres_dict.values())))
         tracks = self.reccomendations(tracks)
-        self.sp.playlist_add_items(playlist_id, [tracks])
-        # self.sp.playlist_add_items(args.playlist, args.tids)
+        self.sp.playlist_add_items(playlist_id, tracks)
