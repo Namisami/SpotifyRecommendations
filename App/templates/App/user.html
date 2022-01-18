@@ -12,16 +12,19 @@
         <p class="text-white mt-3 font-weight-bold user_name">{{ username }}</p>
         <!-- Добавил кнопки -->
         <div class='row'>
-            <a href="#" class='col'>
-                <button type="button" class="text-white border-white rounded-pill green_button py-1">
+            <form action='top_genres' method='GET' style='col'>
+                {% csrf_token %}
+                <button type="submit" class="text-white border-white rounded-pill green_button py-1">
                     Обновить прослушанное
                 </button>
-            </a>
-            <a href="#" class='col'>
-                <button type="button" class="text-white border-white rounded-pill green_button py-1">
+            </form>
+                
+            <form action='create_playlist' method='GET' style='col'>
+                {% csrf_token %}
+                <button type="submit" class="text-white border-white rounded-pill green_button py-1">
                     Сгенерировать плейлист
                 </button>
-            </a>
+            </form>
         </div>
         <div class='row'>
             <a href="{% url 'App:index' %}" class='col'>

@@ -7,4 +7,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     # Авторизация пройдена
     path('user', views.user, name='user'),  
+    path('top_genres', views.top_genres),  
+    path('create_playlist', views.create_playlist)
 ]
