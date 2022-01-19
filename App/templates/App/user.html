@@ -2,7 +2,9 @@
 
 {% block content %}
     <div class="row justify-content-between align-items-start offset_to_center">
+        <div class='col-xl-3  text-center'>
         {% block genres %}{% endblock genres %}
+        </div>
         <div class='col-xl-6 d-flex flex-column align-items-center'>
             <img src="{{ userpic }}" class='rounded-pill user_pic' width="150px">
             <p class="text-white mt-3 font-weight-bold user_name">{{ username }}</p>
@@ -26,6 +28,8 @@
                 </button>
             </a>
         </div>
+        <div class="col-xl-3 text-center">
         {% block playlist %}{% endblock playlist %}
+        </div>
     </div>
 {% endblock content %}
