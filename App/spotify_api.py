@@ -1,6 +1,8 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
+from App import constants
+
 class SP():
     def __init__(self):
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="df8949840c764e07999105485f556f82",
@@ -36,8 +38,7 @@ class SP():
 
     def top_genres_collect(self):
         # Вынос общего
-        sp_range = 'medium_term'
-        results = self.sp.current_user_top_artists(time_range=sp_range, limit=100)
+        results = self.sp.current_user_top_artists(time_range=constants.TIME_RANGE, limit=constants.ARTISTS_NUMBER)
         genres_dict = {}
         for i, genre in enumerate(self.top_genres_count(results)):
             genres_dict[f'genre{i + 1}'] = genre[0]
@@ -47,7 +48,7 @@ class SP():
         track_urls = []
         genres_arr = genres.split(", ")
         # results - огромный словарь данных. Для поиска нужного сперва вводи print(results) а дальше ищи в нем нужную пару ключ: значение
-        results = self.sp.recommendations(seed_genres=genres_arr, limit=50)
+        results = self.sp.recommendations(seed_genres=genres_arr, limit=constants.TRACKS_NUMBER)
         for result in results['tracks']:
             track_url = result['external_urls']['spotify']
             track_urls.append(track_url)
@@ -55,7 +56,7 @@ class SP():
 
     def create_playlist(self):
         user_me = self.sp.me()
-        self.sp.user_playlist_create(user_me['id'] ,'Spotify Recommendations', public=True, collaborative=False, description='')
+        self.sp.user_playlist_create(user_me['id'] , constants.PLAYLIST_NAME, public=True, collaborative=False, description='')
         self.add_songs()
 
     def add_songs(self):
