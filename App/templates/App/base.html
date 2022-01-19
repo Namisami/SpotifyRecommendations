@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang='ru'>
     <head>
@@ -9,67 +11,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,200&family=Oswald:wght@400;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <style>
-            :root { /* Переменные цветов из ТЗ */
-                --green: #1DB954;
-                --grey: #383434;
-                --purple: #4f399b;
-                --white: #ffffff;
-            }
-            .user_name {
-                font-weight: bold;
-                font-size: 36px;
-            }
-            body {
-                font-family: Montserrat;
-                font-size: 18px;
-                color: var(--white);
-                background-color: var(--grey);
-            }
-            /* Выше стили для простых текстов на странице*/
-            /* Ниже стили кнопок */
-            .green_button {
-                min-width: 300px;
-                margin-top: 10px;
-                background-color: #1DB954;
-                font-weight: bold;
-                border-style: solid; /* Чтобы обводка вокруг кнопок была похожей на макет */
-                border-width: 2px;
-                color: var(--white);
-            }
-            .gen-playlist_button {
-                margin-top: 10px;
-                min-width: 300px;
-                background-color: var(--purple);
-                font-weight: bold;
-                border-style: solid;
-                color: var(--white);
-            }
-            .offset_to_center {
-                margin-top: 30vh;
-            }
-            .side_text {
-                color: var(--white);
-                font-weight: lighter;
-                word-wrap: normal;
-            }
-            .side_title {
-                font-weight: bold;
-            }
-            .user_pic {
-                margin-top: 70px;
-            }
-            @media (max-height: 750px){
-                    .offset_to_center {
-                    margin-top: 20vh;
-                }
-            }
-            @media (max-height: 500px){
-                    .offset_to_center {
-                    margin-top: 0px;
-                }
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="{% static 'App/style.css' %}">
     </head>
     <body>
         <div class="container">
