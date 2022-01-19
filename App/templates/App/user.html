@@ -1,37 +1,40 @@
 {% extends 'App/base.html' %}
 
 {% block content %}
-    <div class="position-absolute top-50 text-center start-50 translate-middle">
-        <div>
-            <p class="text-white">{{ genre1 }}</p>
-            <p class="text-white">{{ genre2 }}</p>
-            <p class="text-white">{{ genre3 }}</p>
-            <p class="text-white">{{ genre4 }}</p>
+    <div class="row justify-content-between align-items-start offset_to_center">
+        <div class='col-xl-3  text-center'>
+            <p class="side_title">{{ popular_genres }}</p>
+            <p class="side_text">{{ genre1 }}</p>
+            <p class="side_text">{{ genre2 }}</p>
+            <p class="side_text">{{ genre3 }}</p>
+            <p class="side_text">{{ genre4 }}</p>
         </div>
-        <img src="{{ userpic }}" class='rounded-pill' width="150px"> <!-- Изменил вид фотки -->
-        <p class="text-white mt-3 font-weight-bold user_name">{{ username }}</p>
-        <!-- Добавил кнопки -->
-        <div class='row'>
-            <form action='top_genres' method='GET' style='col'>
-                {% csrf_token %}
-                <button type="submit" class="text-white border-white rounded-pill green_button py-1">
-                    Обновить прослушанное
-                </button>
-            </form>
-                
-            <form action='create_playlist' method='GET' style='col'>
-                {% csrf_token %}
-                <button type="submit" class="text-white border-white rounded-pill green_button py-1">
-                    Сгенерировать плейлист
-                </button>
-            </form>
-        </div>
-        <div class='row'>
-            <a href="{% url 'App:index' %}" class='col'>
+        <div class='col-xl-6 d-flex flex-column align-items-center'>
+            <img src="{{ userpic }}" class='rounded-pill user_pic' width="150px">
+            <p class="text-white mt-3 font-weight-bold user_name">{{ username }}</p>
+            <div class="d-flex flex-wrap justify-content-center">
+                <form action='top_genres' method='GET' class='mx-1'>
+                    {% csrf_token %}
+                    <button type="submit" class="text-white border-white rounded-pill green_button py-1">
+                        Обновить прослушанное
+                    </button>
+                </form>
+                <form action='create_playlist' method='GET' class='mx-1'>
+                    {% csrf_token %}
+                    <button type="submit" class="text-white border-white rounded-pill green_button py-1" >
+                        Сгенерировать плейлист
+                    </button>
+                </form>
+            </div>
+            <a href="{% url 'App:index' %}" class='col-md'>
                 <button type="button" class="text-white border-white rounded-pill gen-playlist_button py-1">
                     Выйти из аккаунта
                 </button>
             </a>
+        </div>
+        
+        <div class="col-xl-3 text-center">
+            
         </div>
     </div>
 {% endblock content %}
