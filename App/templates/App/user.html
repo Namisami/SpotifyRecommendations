@@ -17,7 +17,7 @@
                 </form>
                 <form action='create_playlist' method='GET' class='mx-1'>
                     {% csrf_token %}
-                    <button type="submit" class="text-white border-white rounded-pill green_button py-1" >
+                    <button type="submit" class="text-white border-white rounded-pill green_button py-1" {{disabled}}>
                         Сгенерировать плейлист
                     </button>
                 </form>

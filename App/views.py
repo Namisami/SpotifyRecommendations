@@ -9,15 +9,14 @@ def index(request):
 def user(request):
     sp = spotify_api.SP()
     login = sp.sp_login()
-    context = login
+    context = {**login, **{'disabled':'disabled'}}
     return render(request, 'App/user.html', context)
 
 def top_genres(request):
     sp = spotify_api.SP()
     login = sp.sp_login()
     top_genres = sp.sp_top_genres()
-    context = {**login, **top_genres}
-    print(context)
+    context = {**login, **top_genres, **{'disabled':''}}
     return render(request, 'App/top_genres.html', context)
 
 def create_playlist(request):
