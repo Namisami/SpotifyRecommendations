@@ -16,12 +16,14 @@ def top_genres(request):
     sp = spotify_api.SP()
     login = sp.sp_login()
     top_genres = sp.sp_top_genres()
-    context = {**login, **top_genres, **{'popular_genres':'Популярные жанры:'}}
+    context = {**login, **top_genres}
     print(context)
-    return render(request, 'App/user.html', context)
+    return render(request, 'App/top_genres.html', context)
 
 def create_playlist(request):
     sp = spotify_api.SP()
     sp.create_playlist()
-    context = sp.sp_login()
-    return render(request, 'App/user.html', context)
+    login = sp.sp_login()
+    top_genres = sp.sp_top_genres()
+    context = {**login, **top_genres}
+    return render(request, 'App/create_playlist.html', context)

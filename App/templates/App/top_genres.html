@@ -1,0 +1,12 @@
+{% extends 'App/user.html' %}
+
+{% block genres %}
+    <div class='col-xl-3  text-center'>
+        <p class="text-white fw-bold">Популярные жанры:</p>
+        <p class="side_title">{{ popular_genres }}</p>
+        <p class="side_text">{{ genre1 }}</p>
+        <p class="side_text">{{ genre2 }}</p>
+        <p class="side_text">{{ genre3 }}</p>
+        <p class="side_text">{{ genre4 }}</p>
+    </div>
+{% endblock genres %}
