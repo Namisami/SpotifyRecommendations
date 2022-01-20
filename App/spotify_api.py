@@ -13,15 +13,25 @@ class SP():
     def sp_login(self):
         sp = self.sp.current_user()
         username = sp['display_name']
-        userpic = sp['images'][0]['url']
+        #Проверка на случай, если у пользователя нет фото
+        try:
+            userpic = sp['images'][0]['url']
+        except IndexError:
+            userpic = 'https://sun9-37.userapi.com/impg/IMCW-A_pG3CK2HYiv_va5tELmOEyjXslJZTNaQ/OxtzI64Kqls.jpg?size=1000x1000&quality=96&sign=384f9969835bcaceaec6a02c48b397c4&type=album'
         context = {'username': username, 'userpic': userpic}
         return context
 
     def sp_top_genres(self):
         # Топ жанры
-        genres_dict = self.top_genres_collect()
-        self.reccomendations(", ".join(list(genres_dict.values())))
-        return genres_dict
+        try:
+            try:
+                genres_dict = self.top_genres_collect()
+                self.reccomendations(", ".join(list(genres_dict.values())))
+                return genres_dict
+            except SpotifyException:
+                pass
+        except NameError:
+            pass
 
     def top_genres_count(self, results):
         # Подсчет всех жанров которые есть и их сортировка

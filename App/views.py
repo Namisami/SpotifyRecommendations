@@ -15,9 +15,13 @@ def user(request):
 def top_genres(request):
     sp = spotify_api.SP()
     login = sp.sp_login()
-    top_genres = sp.sp_top_genres()
-    context = {**login, **top_genres, **{'disabled':''}}
-    return render(request, 'App/top_genres.html', context)
+    try:
+        top_genres = sp.sp_top_genres()
+        context = {**login, **top_genres, **{'disabled':''}}
+        return render(request, 'App/top_genres.html', context)
+    except TypeError:
+        context = login
+        return render(request, 'App/error.html', context)
 
 def create_playlist(request):
     sp = spotify_api.SP()
