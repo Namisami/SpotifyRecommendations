@@ -11,21 +11,19 @@
             <div class="d-flex flex-wrap justify-content-center">
                 <form action='top_genres' method='GET' class='mx-1'>
                     {% csrf_token %}
-                    <button type="submit" class="text-white border-white rounded-pill green_button py-1">
+                    <button type="submit" class="rounded-pill green_button py-1">
                         Обновить прослушанное
                     </button>
                 </form>
                 <form action='create_playlist' method='GET' class='mx-1'>
                     {% csrf_token %}
-                    <button type="submit" class="text-white border-white rounded-pill green_button py-1" {{disabled}}>
+                    <button type="submit" class="rounded-pill green_button py-1 {{disabled}}" {{disabled}}>
                         Сгенерировать плейлист
                     </button>
                 </form>
             </div>
-            <a href="{% url 'App:index' %}" class='col-md'>
-                <button type="button" class="text-white border-white rounded-pill gen-playlist_button py-1">
-                    Выйти из аккаунта
-                </button>
+            <a href="{% url 'App:index' %}" class='col-md text-white border-white rounded-pill exit_button py-1 text-center'>
+                Выйти из аккаунта
             </a>
         </div>
         <div class="col-xl-3 text-center">
