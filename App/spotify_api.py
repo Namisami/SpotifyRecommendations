@@ -52,10 +52,17 @@ class SP():
         for result in results['tracks']:
             track_url = result['external_urls']['spotify']
             track_urls.append(track_url)
+        
         return track_urls
 
     def create_playlist(self):
         user_me = self.sp.me()
+        all_playlists = self.sp.current_user_playlists(limit=50)
+        for i in range(len(all_playlists['items'])):
+            if str(all_playlists['items'][i]['name'])==constants.PLAYLIST_NAME:
+                self.sp.current_user_unfollow_playlist(all_playlists['items'][i]['id'])
+            else:
+                print('не нашел')
         self.sp.user_playlist_create(user_me['id'] , constants.PLAYLIST_NAME, public=True, collaborative=False, description='')
         self.add_songs()
 
