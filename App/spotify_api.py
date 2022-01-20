@@ -61,10 +61,12 @@ class SP():
         for i in range(len(all_playlists['items'])):
             if str(all_playlists['items'][i]['name'])==constants.PLAYLIST_NAME:
                 self.sp.current_user_unfollow_playlist(all_playlists['items'][i]['id'])
-            else:
-                print('не нашел')
         self.sp.user_playlist_create(user_me['id'] , constants.PLAYLIST_NAME, public=True, collaborative=False, description='')
         self.add_songs()
+
+    def receive_playlist(self):
+        playlist = self.sp.current_user_playlists(limit=1, offset=0)
+        return playlist
 
     def add_songs(self):
         # Добавляет песни в плейлист
@@ -74,3 +76,24 @@ class SP():
         tracks = (", ".join(list(genres_dict.values())))
         tracks = self.reccomendations(tracks)
         self.sp.playlist_add_items(playlist_id, tracks)
+
+    def first_songs(self):
+        playlist = self.receive_playlist()
+        playlist_id = playlist['items'][0]['id']
+        response = self.sp.playlist_items(playlist_id,
+                                 offset=0,
+                                 limit = 6,
+                                 fields='',
+                                 additional_types=['track'])
+        track_list = {}
+        for i, composition in enumerate(response['items']):
+            artist = composition['track']['artists'][0]['name']
+            track = composition['track']['name']
+            track_list[f'artist{i + 1}'] = artist
+            track_list[f'track{i + 1}'] = track
+        return track_list
+
+    def receive_playlist_link(self):
+        playlist = self.receive_playlist()
+        playlist_link = playlist['items'][0]['external_urls']['spotify']
+        return {'playlist_link': playlist_link}

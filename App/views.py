@@ -24,5 +24,7 @@ def create_playlist(request):
     sp.create_playlist()
     login = sp.sp_login()
     top_genres = sp.sp_top_genres()
-    context = {**login, **top_genres}
+    first_songs = sp.first_songs()
+    playlist_link = sp.receive_playlist_link()
+    context = {**login, **top_genres, **first_songs, **playlist_link}
     return render(request, 'App/create_playlist.html', context)
